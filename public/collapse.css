@@ -1,0 +1,40 @@
+.collapse {
+    background-color: white;
+}
+
+.collapse__header{
+    /* width: 100%; */
+}
+
+.name__btn {
+    color: white;
+    background-color: aqua;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: large;
+    margin: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.name__btn:hover {
+    color: black;
+    background-color: red;
+}
+
+.body {
+    margin: 5px;
+    padding: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+.text__fld {
+    margin: 10px;
+    padding: 5px;
+    background-color: lightgray;
+    border: 2px solid black;
+}
