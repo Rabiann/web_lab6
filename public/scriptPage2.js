@@ -1,7 +1,7 @@
 const collapseButtons = document.getElementsByClassName('name__btn');
 const collapseBody = document.getElementById("3");
 const collapseText = document.getElementById("6");
-const url = "http://127.0.0.1:5000/getall"
+const url = "https://weblab6-production-2e8e.up.railway.app/getall"
 
 
 function synchronousRequest(url) {
