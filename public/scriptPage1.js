@@ -10,6 +10,8 @@ createForm.addEventListener('submit',async (e) => {
     let response = await fetch(url + `?name=${form.get('name')}&text=${form.get('text')}`, {
         method: "GET",
     })
+    
+    _ = response
 })
 
 console.log("script loaded");

@@ -8,53 +8,45 @@ const staticPath = join(__dirname, "public")
 const listStoragePath = join(__dirname, "list.json")
 const cors = require('cors')
 
-let clients = []
+// let clients = []
 
-function sendToAll(updatedList) {
-  for (const client of clients) {
-    client.res.write(`data: ${JSON.stringify(updatedList)}\n\n`)
-  }
-}
+// function sendToAll(updatedList) {
+//   for (const client of clients) {
+//     client.res.write(`data: ${JSON.stringify(updatedList)}\n\n`)
+//   }
+// }
 
 app.use(urlencoded({ extended: true }))
-app.use(express.static(staticPath))
+// app.use(express.static(staticPath))
 app.use(cors())
 
-app.get("/sse", (req, res) => {
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('Content-Encoding', 'none');
+// app.get("/sse", (req, res) => {
+//   res.setHeader('Content-Type', 'text/event-stream');
+//   res.setHeader('Cache-Control', 'no-cache');
+//   res.setHeader('Connection', 'keep-alive');
+//   res.setHeader('Content-Encoding', 'none');
 
-  res.write(`data: Connection established\n\n`)
+//   res.write(`data: Connection established\n\n`)
 
-  const clientId = Date.now()
+//   const clientId = Date.now()
 
-  const newClient = {
-    id: clientId,
-    res
-  }
+//   const newClient = {
+//     id: clientId,
+//     res
+//   }
 
-  clients.push(newClient)
+//   clients.push(newClient)
 
-  req.on('close', () => {
-    console.log("connection closed")
-    clients = clients.filter(client => client.id !== clientId)
-  })
-})
+//   req.on('close', () => {
+//     console.log("connection closed")
+//     clients = clients.filter(client => client.id !== clientId)
+//   })
+// })
 
-app.get('/', (req, res) => {
-  res.sendFile(join(staticPath, "page2.html"))
-})
-
-app.get('/control', (req, res) => {
-    res.sendFile(join(staticPath, "page1.html"))
-})
-
-app.get('/getall', (req, res) => {
+app.get('/getall', (_, res) => {
   const list = readFileSync(join(listStoragePath))
   const deserialized = JSON.parse(list)
-  res.json(deserialized)
+  res.status(200).json(deserialized)
 })
 
 app.get('/create', async (req, res) => {
@@ -69,7 +61,7 @@ app.get('/create', async (req, res) => {
 
     const listSerialized = JSON.stringify(listDeserializad)
     writeFileSync(listStoragePath, listSerialized)
-    sendToAll(listDeserializad)
+    // sendToAll(listDeserializad)
     res.status(200).redirect("/control")
 })
 

@@ -2,6 +2,7 @@ const collapseButtons = document.getElementsByClassName('name__btn');
 const collapseBody = document.getElementById("3");
 const collapseText = document.getElementById("6");
 const url = "https://weblab6-production-2e8e.up.railway.app/getall"
+// const url = "http://127.0.0.1:5000/getall"
 
 
 function synchronousRequest(url) {
@@ -15,8 +16,8 @@ function synchronousRequest(url) {
     }
 }
 
-let list = JSON.parse(synchronousRequest(url));
-console.log(list);
+// let list = JSON.parse(synchronousRequest(url));
+let list = []
 
 function redrawButtons() {
     const collapseHeader = document.getElementById("5");
@@ -48,37 +49,31 @@ function redrawButtons() {
 }
 
 redrawButtons();
-const eventSource = new EventSource("http://127.0.0.1:5000/sse")
 
-eventSource.onopen = (event) => {
-    console.log("connection established")
-}
+setInterval(() => {
+    list = JSON.parse(synchronousRequest(url));
+    redrawButtons();    
+}, 1000)
 
-eventSource.onmessage = (event) => {
-    try {
-        const data = JSON.parse(event.data);
-        console.log(data)
-        list = data
-        redrawButtons()
-    } catch {
-    }
-}
+// const eventSource = new EventSource("https://weblab6-production-2e8e.up.railway.app/sse")
 
-eventSource.onerror = (event) => {
-    console.log(`Error happened with eventsource: `, event)
-}
-
-// for (let i = 0; i < collapseButtons.length; i++) {
-//     const collapseButton = collapseButtons[i];
-//     collapseButton.addEventListener("click", () => {
-//         collapseBody.textContent = list[i].text;
-//         if (collapseBody.classList.contains("hidden")) {
-//             collapseBody.classList.remove("hidden");
-//         } else {
-//             collapseBody.classList.add("hidden")
-//         }
-//     })
+// eventSource.onopen = (event) => {
+//     console.log("connection established")
 // }
 
-const textField = document.getElementById("1");
+// eventSource.onmessage = (event) => {
+//     try {
+//         const data = JSON.parse(event.data);
+//         console.log(data)
+//         list = data
+//         redrawButtons()
+//     } catch {
+//     }
+// }
+
+// eventSource.onerror = (event) => {
+//     console.log(`Error happened with eventsource: `, event)
+// }
+
+// const textField = document.getElementById("1");
 console.log("script loaded");
