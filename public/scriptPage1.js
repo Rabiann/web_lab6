@@ -1,6 +1,6 @@
 const collapseButtons = document.getElementsByClassName('name__btn');
 const collapseBody = document.getElementById("3");
-const url = "https://weblab6-production-2e8e.up.railway.app/create"
+const url = "https://airy-celebration-production.up.railway.app/create"
 
 const createForm = document.getElementById("4");
 createForm.addEventListener('submit',async (e) => {
